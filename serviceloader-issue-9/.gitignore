@@ -1,0 +1,10 @@
+.classpath
+.project
+.settings/
+
+#
+# m2e marks target/ as a derived resource, so EGit's "Automatically ignore
+# derived resources by adding them to .gitignore" may automagically add
+# this, but we play it safe and manually add it here.
+#
+target/

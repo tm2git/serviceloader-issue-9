@@ -1,0 +1,89 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.dannythorpe.tm2git</groupId>
+    <artifactId>serviceloader-issue-9</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>serviceloader-issue-9-service</artifactId>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>
+                      eu.somatik.serviceloader-maven-plugin
+                    </groupId>
+                    <artifactId>serviceloader-maven-plugin</artifactId>
+                    <versionRange>[1.0.3,)</versionRange>
+                    <goals>
+                      <goal>generate</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <!--
+                      Ideally we could configure this action to be <execute/>
+                      (so that pure Eclipse-with-m2e builds would execute this
+                      plugin and produce the same results as Maven builds).
+                      However, <execute/> is only really suitable for plugins
+                      that satisfy the m2e diktats here
+
+                          http://wiki.eclipse.org/M2E_compatible_maven_plugins#BuildContext
+
+                      and at present that (quite reasonably) isn't true for
+                      this plugin.  If you try to use <execute/> with a plugin
+                      that isn't really set up for it, strange and ungood
+                      things can happen, e.g. builds in Eclipse that keep
+                      triggering more builds.
+                      
+                      So...  we use <ignore/> here.  But that is problematic
+                      too:  if, for whatever reason, something causes Eclipse
+                      to do an Eclipse-with-m2e build (not a Maven build) of
+                      this project, other projects that depend on this one may
+                      unexpectedly end up executing (under Eclipse, with m2e
+                      "Workspace Resolution" enabled, as it is by default) and
+                      using a version of this project that includes the
+                      compiled classes but not the META-INF/services file.
+                    -->
+                    <ignore/>
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>eu.somatik.serviceloader-maven-plugin</groupId>
+        <artifactId>serviceloader-maven-plugin</artifactId>
+        <version>1.0.3</version>
+        <configuration>
+          <services>
+            <param>com.dannythorpe.tm2git.IDummyService</param>
+          </services>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

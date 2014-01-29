@@ -1,0 +1,38 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.dannythorpe.tm2git</groupId>
+  <artifactId>serviceloader-issue-9</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>serviceloader-issue-9-service</module>
+    <module>serviceloader-issue-9-testclient</module>
+  </modules>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <!--
+            Maven exhorts us to be explicit about versions, so here is an
+            explicit version, though we don't actually depend on it
+          -->
+          <version>3.1</version>
+          <configuration>
+            <!-- We do care about this: javac config for child projects -->
+            <source>1.6</source>
+            <target>1.6</target>
+            <encoding>UTF-8</encoding>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>
